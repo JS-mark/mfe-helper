@@ -1,54 +1,58 @@
 <template>
   <n-layout-header bordered>
-    <header class="header">
-      <n-space class="user-control a-center">
-        <slot name="control"></slot>
-        <!-- 添加 -->
-        <n-tooltip trigger="hover">
-          <template #trigger>
-            <n-button
-              strong
-              secondary
-              circle
-              type="primary"
-              @click="onAddHosts"
-            >
+    <header class="header row f-between a-center">
+      <section row>
+        <n-space class="row a-center">
+          <svg-icon name="logo-header" size="35px"></svg-icon>
+          <span class="logo-name">{{ APP_NAME }}</span>
+        </n-space>
+      </section>
+      <section class="row f-center a-center">
+        <n-space class="user-control a-center">
+          <slot name="control"></slot>
+          <!-- 添加 -->
+          <n-tooltip trigger="hover">
+            <template #trigger>
+              <n-button
+                strong
+                secondary
+                circle
+                type="primary"
+                @click="onAddHosts"
+              >
+                <template #icon>
+                  <svg-icon name="plus" size="16px"></svg-icon>
+                </template>
+              </n-button>
+            </template>
+            添加新的 Hosts 内容
+          </n-tooltip>
+          <!-- 设置 -->
+          <n-dropdown
+            placement="bottom-end"
+            trigger="hover"
+            size="large"
+            :options="options"
+            :show-arrow="true"
+            @select="onDropdownSelected"
+          >
+            <n-button strong secondary circle type="info">
               <template #icon>
-                <svg-icon name="plus" size="16px"></svg-icon>
+                <svg-icon name="settings" size="16px"></svg-icon>
               </template>
             </n-button>
-          </template>
-          添加新的 Hosts 内容
-        </n-tooltip>
-        <!-- 设置 -->
-        <n-dropdown
-          placement="bottom-center"
-          trigger="click"
-          size="medium"
-          :options="options"
-          :show-arrow="true"
-          @select="onDropdownSelected"
-        >
-          <n-button strong secondary circle type="info">
-            <template #icon>
-              <svg-icon name="settings" size="16px"></svg-icon>
-            </template>
-          </n-button>
-        </n-dropdown>
-      </n-space>
+          </n-dropdown>
+        </n-space>
 
-      <n-divider vertical />
-      <n-space class="row f-end a-center">
-        <n-badge value="99+">
-          <n-avatar
-            round
-            size="small"
-            src="https://07akioni.oss-cn-beijing.aliyuncs.com/07akioni.jpeg"
-          >
-            SwitchHostsR
-          </n-avatar>
-        </n-badge>
-      </n-space>
+        <n-divider vertical />
+        <n-space class="row f-end a-center">
+          <n-badge value="99+">
+            <n-avatar round size="small" :src="user.user.avatar">
+              {{ APP_NAME }}
+            </n-avatar>
+          </n-badge>
+        </n-space>
+      </section>
     </header>
   </n-layout-header>
 </template>
@@ -61,10 +65,11 @@ export default {
 
 <script lang="ts" setup>
 import { h } from "vue";
-import SvgIcon from "../svg.vue";
+import SvgIcon from "@/components/svg.vue";
+import { APP_NAME } from "@/utils/constant";
 import { useHostsStore, useSettingsStore } from "@/store";
 const { show: showAddHosts } = useHostsStore();
-const { show, settings } = useSettingsStore();
+const { show, settings, user } = useSettingsStore();
 
 const emits = defineEmits<{
   (event: "onSettting"): void;
@@ -172,11 +177,13 @@ const onAddHosts = () => {
 <style lang="stylus" scoped>
 .header
   width 100%
-  display flex
   padding 10px 25px
   box-sizing border-box
-  justify-content flex-end
-  align-items center
+
+  & .logo-name
+    color #333
+    font-size 18px
+    font-weight 600
 
   & .user
     &-control

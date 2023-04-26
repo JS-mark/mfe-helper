@@ -4,7 +4,8 @@
   "platform": ["win32", "darwin", "linux"],
   "development": {
     "main": "http://127.0.0.1:1420/index.html",
-    "preload": "http://127.0.0.1:1420/preload.js"
+    "preload": "http://127.0.0.1:1420/preload.js",
+    "logo": "http://127.0.0.1:1420/logo.png"
   },
   "pluginSetting": {
     "single": true

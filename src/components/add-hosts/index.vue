@@ -76,7 +76,7 @@ import {
 
 export default defineComponent({
   name: "ListDraw",
-  setup(props, ctx) {
+  setup() {
     const message = useMessage();
     const router = useRouter();
     const store = useHostsStore();

@@ -1,10 +1,12 @@
 import { defineStore } from "pinia";
+import { SettingSpace } from "./useSettings";
 import { set, isEmpty } from "lodash-es";
 export interface Content {
   [key: string]: any;
 }
 
 export interface ShowOptions {
+  settings?: SettingSpace.Settings;
   content?: Content;
   mode?: Mode;
 }
@@ -38,7 +40,8 @@ export const useHostsStore = defineStore("hosts", {
     show(options?: ShowOptions) {
       this.isShowEditor = true;
       if (!isEmpty(options)) {
-        const { content, mode } = options;
+        const { content, mode, settings } = options;
+        console.log("settings", settings);
         content && isEmpty(content) && this.setContent(content);
         mode && this.setMode(mode);
       }

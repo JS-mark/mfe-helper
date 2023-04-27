@@ -18,7 +18,6 @@
         :options="menus"
         :render-label="renderMenuLabel"
         :render-icon="renderMenuIcon"
-        :expand-icon="expandIcon"
       />
       <n-dropdown
         placement="right"
@@ -64,7 +63,7 @@ import {
   defaultRoute,
 } from "@/router/routes";
 
-import { CaretDownOutline, SettingsSharp } from "@vicons/ionicons5";
+import { SettingsSharp } from "@vicons/ionicons5";
 import SvgIcon from "@/components/svg.vue";
 
 const route = useRoute();
@@ -163,11 +162,9 @@ const renderMenuLabel = (option: MenuOption) => {
   }
   return option.label as string;
 };
+
 const renderMenuIcon = (option: MenuOption) => {
   return h(NIcon, null, { default: () => option.icon && option.icon() });
-};
-const expandIcon = () => {
-  return h(NIcon, null, { default: () => h(CaretDownOutline) });
 };
 
 emitter.on("onAddRoute", () => {

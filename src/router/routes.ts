@@ -1,5 +1,4 @@
 import { RouteRecordRaw } from "vue-router";
-import { Home, Albums } from "@vicons/ionicons5";
 import { generateRoutes, processRoutes, genSidersMenus } from "./utils";
 
 export * from "./utils";
@@ -9,17 +8,43 @@ export const routes: RouteRecordRaw[] = [
     name: "Home",
     meta: {
       title: "首页",
-      icon: Home,
+      icon: "home",
+      disabled: false,
       hidden: false,
     },
     component: () => import("@/pages/home/index.vue"),
+  },
+  {
+    path: "/hosts",
+    name: "Hosts",
+    meta: {
+      title: "Hosts 管理",
+      icon: "logo-header",
+      disabled: false,
+      hidden: false,
+    },
+    redirect: "/hosts/list",
+    children: [
+      {
+        path: "/list",
+        name: "List",
+        meta: {
+          title: "TTTTT",
+          disabled: false,
+          hidden: false,
+          icon: "about",
+        },
+        component: () => import("@/pages/about/index.vue"),
+      },
+    ],
   },
   {
     path: "/about",
     name: "About",
     meta: {
       title: "关于",
-      icon: Albums,
+      disabled: false,
+      icon: "about",
       hidden: false,
     },
     component: () => import("@/pages/about/index.vue"),
@@ -35,11 +60,12 @@ export const routes: RouteRecordRaw[] = [
     children: [
       {
         path: "/404",
+        name: "404",
         meta: {
           title: "404 - NotFound",
           hidden: true,
         },
-        redirect: "/",
+        component: () => import("@/pages/404/404.vue"),
       },
     ],
   },
@@ -49,7 +75,7 @@ export const routes: RouteRecordRaw[] = [
     meta: {
       hidden: true,
     },
-    component: () => import("@/pages/404/404.vue"),
+    redirect: "/error/404",
   },
 ];
 

@@ -1,21 +1,26 @@
 <template>
-  <div>
-    <span @click="open">{{ "By Mark" }}</span>
-  </div>
+  <iframe
+    src="https://js-mark.com/mfe-helper"
+    class="container"
+    frameborder="0"
+  ></iframe>
 </template>
 
 <script lang="ts">
 import { defineComponent } from "vue";
-import { useHostsStore } from "@/store";
 export default defineComponent({
   name: "About",
-  setup(props) {
-    const { show } = useHostsStore();
-    return {
-      open() {
-        show({ mode: "create" });
-      },
-    };
+  setup() {
+    return {};
   },
 });
 </script>
+
+<style lang="stylus" scoped>
+.container
+  border none
+  margin 0
+  padding: 0
+  width 100%
+  height 100%
+</style>
